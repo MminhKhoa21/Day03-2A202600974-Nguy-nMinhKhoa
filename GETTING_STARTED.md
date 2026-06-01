@@ -23,23 +23,21 @@ This project implements a **ReAct (Reasoning + Acting) Agent** that helps teache
 ```
 .
 ├── src/
-│   ├── __init__.py
+│   ├── chatbot.py                 # Baseline + CLI (Chat / Teacher modes)
 │   ├── agent/
-│   │   ├── __init__.py
-│   │   └── agent.py              # ReActAgent implementation
+│   │   └── agent.py               # ReActAgent implementation
 │   ├── core/
-│   │   ├── __init__.py
 │   │   ├── llm_provider.py        # Base LLM provider interface
 │   │   ├── openai_provider.py     # OpenAI implementation
 │   │   ├── gemini_provider.py     # Google Gemini implementation
 │   │   └── local_provider.py      # Local model support (Phi-3)
+│   ├── tools/
+│   │   ├── topics.py              # list_topics
+│   │   └── questions.py           # generate / review / format
 │   └── telemetry/
-│       ├── __init__.py
 │       ├── logger.py              # Structured JSON logging
 │       └── metrics.py             # Performance metrics
-├── agent.py                        # Wrapper for ReActAgent imports
-├── tools.py                        # Tools for the agent (get_topics, generate_question, etc.)
-├── chatbot.py                      # Interactive CLI chatbot
+├── chatbot.py                      # Entry point → src.chatbot
 ├── requirements.txt
 ├── .env                            # Configuration (API keys, model settings)
 ├── test_cases.md                   # Test cases and results
@@ -225,7 +223,7 @@ mkdir -p models
 ## 📚 Advanced Features
 
 ### Custom Tools
-Add new tools by modifying `tools.py`:
+Add new tools under `src/tools/` and register them in `src/tools/__init__.py`:
 
 ```python
 TOOLS = [
@@ -292,7 +290,7 @@ This project is part of the Agentic AI course.
 ## 🤝 Contributing
 
 To extend the agent:
-1. Add new tools to `tools.py`
+1. Add new tools under `src/tools/`
 2. Update system prompt in `src/agent/agent.py` if needed
 3. Add test cases to `test_cases.md`
 4. Run tests and verify performance
